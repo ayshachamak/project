@@ -10,7 +10,7 @@ require_once './model/ExpenseCategoryModel.php';
     </head>
     <body>
         <br/><br/>
-        <form method="post" action="process-expenditure.php">
+        <form method="post" action="controller/process-expenditure.php">
             <fieldset>
                 <center>
                     <br/>
@@ -20,7 +20,6 @@ require_once './model/ExpenseCategoryModel.php';
                     $categories = $categoryModel->getAllCategory();
                     if ($categories) {
                         $index = 1;
-                        echo date('Y-m-d');
                         while($category = mysqli_fetch_assoc($categories)) {
                             ?>
                     Category<?php echo $index++; ?>: <input type="checkbox" checked="" readonly="" name="cat[]" value="<?php echo $category["id"]; ?>"><?php echo $category["name"]; ?><br/>
