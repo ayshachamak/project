@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2018 at 04:09 AM
+-- Generation Time: Apr 07, 2018 at 02:30 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -37,6 +37,20 @@ CREATE TABLE `budget` (
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `budget`
+--
+
+INSERT INTO `budget` (`id`, `user_id`, `category_id`, `amount`, `budget_month`, `created_date`) VALUES
+(1, 1, 1, 1000, '2018-01-01', '2018-04-07 11:08:10'),
+(2, 1, 2, 2000, '2018-01-01', '2018-04-07 11:08:10'),
+(3, 1, 3, 1500, '2018-01-01', '2018-04-07 11:08:10'),
+(4, 1, 4, 1500, '2018-01-01', '2018-04-07 11:08:10'),
+(5, 1, 5, 2500, '2018-01-01', '2018-04-07 11:08:10'),
+(6, 1, 6, 3500, '2018-01-01', '2018-04-07 11:08:10'),
+(7, 1, 7, 500, '2018-01-01', '2018-04-07 11:08:10'),
+(8, 1, 8, 500, '2018-01-01', '2018-04-07 11:08:10');
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +64,20 @@ CREATE TABLE `expenditures` (
   `category_id` int(11) NOT NULL,
   `expenditure_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `expenditures`
+--
+
+INSERT INTO `expenditures` (`id`, `user_id`, `amount`, `category_id`, `expenditure_date`) VALUES
+(1, 1, 100, 1, '2018-01-01 18:00:00'),
+(2, 1, 400, 2, '2018-01-01 18:00:00'),
+(3, 1, 250, 3, '2018-01-01 18:00:00'),
+(4, 1, 1500, 4, '2018-01-06 18:00:00'),
+(5, 1, 10000, 5, '2018-01-06 18:00:00'),
+(6, 1, 3500, 6, '2018-01-09 18:00:00'),
+(7, 1, 500, 2, '2018-01-23 18:00:00'),
+(8, 1, 300, 5, '2018-01-23 18:00:00');
 
 -- --------------------------------------------------------
 
@@ -69,10 +97,14 @@ CREATE TABLE `expense_category` (
 --
 
 INSERT INTO `expense_category` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'House Rent', '2018-03-29 19:30:16', '0000-00-00 00:00:00'),
-(2, 'Shopping', '2018-03-29 19:30:16', '0000-00-00 00:00:00'),
-(3, 'Movie', '2018-03-29 19:34:52', '0000-00-00 00:00:00'),
-(4, 'Other', '2018-03-29 19:34:52', '0000-00-00 00:00:00');
+(1, 'Transport', '2018-03-29 19:30:16', '0000-00-00 00:00:00'),
+(2, 'Medical', '2018-03-29 19:30:16', '0000-00-00 00:00:00'),
+(3, 'Entertainment', '2018-03-29 19:34:52', '0000-00-00 00:00:00'),
+(4, 'Food', '2018-03-29 19:34:52', '0000-00-00 00:00:00'),
+(5, 'Utilities', '2018-04-07 04:24:05', '0000-00-00 00:00:00'),
+(6, 'Education', '2018-04-07 04:24:05', '0000-00-00 00:00:00'),
+(7, 'Sports', '2018-04-07 04:24:41', '0000-00-00 00:00:00'),
+(8, 'Other', '2018-04-07 04:24:41', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -145,17 +177,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `budget`
 --
 ALTER TABLE `budget`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `expenditures`
 --
 ALTER TABLE `expenditures`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `expense_category`
 --
 ALTER TABLE `expense_category`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `income_category`
 --
