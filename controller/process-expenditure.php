@@ -2,16 +2,9 @@
 
 include '../config.php';
 include '../Database.php';
-?>
-<?php
 
 session_start();
 $db = new Database();
-
-//var_dump($_SESSION);
-//var_dump($_POST);
-//die('here');
-
 
 if (isset($_SESSION) && isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
@@ -47,9 +40,9 @@ if (isset($_SESSION) && isset($_SESSION['user_id'])) {
 //        } else {
 //            header('Location: my-wallet.php');
 //        }
-        header('Location: ../my-wallet.php');
+        header('Location: ../expenditure.php?success=1');
     } else {
-        header('Location: ../expenditure.php');
+        header('Location: ../expenditure.php?error=1');
     }
 } else {
     die('in here');

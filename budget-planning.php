@@ -1,3 +1,8 @@
+<?php
+session_start();
+$_SESSION['user_id'] = 1;
+require_once './model/ExpenseCategoryModel.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,37 +11,47 @@
 <body>
 
 	<br><br>
-	<form method="post" action="" target="_Self">
+        <form method="post" action="controller/process-budget.php">
 		<fieldset>
 			<center>
 			<br>
-
-			Category 1: <input type="checkbox" name="cat1" value="Transport">Transport
-
-			<select name="Month">
+                        Budget Month:
+                        <select name="month" required="required">
 				<option value="hidden selected">Select Month</option>
-				<option value="January">January</option>
-				<option value="February">February</option>
-				<option value="March">March</option>
-				<option value="April">April</option>
-				<option value="May">May</option>
-				<option value="June">June</option>
-				<option value="July">July</option>
-				<option value="August">August</option>
-				<option value="September">September</option>
-				<option value="October">October</option>
-				<option value="November">November</option>
-				<option value="December">December</option>
+				<option value="01">January</option>
+				<option value="02">February</option>
+				<option value="03">March</option>
+				<option value="04">April</option>
+				<option value="05">May</option>
+				<option value="06">June</option>
+				<option value="07">July</option>
+				<option value="08">August</option>
+				<option value="09">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
+			</select><br><br/>
 
-			</select><br>
+<?php
+                    $categoryModel = new ExpenseCategoryModel();
+                    $categories = $categoryModel->getAllCategory();
+                    if ($categories) {
+                        $index = 1;
+                        while($category = mysqli_fetch_assoc($categories)) {
+                            ?>
+			Category <?php echo $index++; ?>: <input type="checkbox" name="cat[]" value="<?php echo $category["id"]; ?>"><?php echo $category["name"]; ?>
+                        <input type="hidden" name="category[]" value="<?php echo $category["id"]; ?>">
+			Amount: <input type="text" name="amount[]">
+			<br><br><br>			
+                        <?php
+                        }
+                    } else {
+                        echo 'No Category Exists. Insert Category into Database';
+                    }
+                    ?>
 
-			Amount: <input type="text" name="amount">
-			
 
-			<br><br><br>
-
-
-			Category 2: <input type="checkbox" name="cat2" value="Medical">Medical  
+<!--			Category 2: <input type="checkbox" name="cat2" value="Medical">Medical  
 			
 			<select name="Month">
 				<option value="hidden selected">Select Month</option>
@@ -175,7 +190,7 @@
 
 			Amount:<input type="text" name="amount">
 
-			<br> <br>
+			<br> <br>-->
 
 			<input type="submit" name="submit" value="Submit">
 			<input type="reset" name="reset" value="Reset">

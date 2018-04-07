@@ -6,7 +6,7 @@ require_once './model/ExpenseCategoryModel.php';
 <!DOCTYPE html>
 <html>
     <head>
-        <title>My Wallet</title>
+        <title>Enter Expenses</title>
     </head>
     <body>
         <br/><br/>
