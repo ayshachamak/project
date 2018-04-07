@@ -39,16 +39,16 @@ include 'Database.php';
 	
 	
 			
-	<form class="regi" action="sign_in.php" method="post">	
+        <form class="regi" action="controller/process-sign_in.php" method="post">	
 		
 		<label for="userid">User ID:</label> 
-		<input id="userid" type="name" name="userid" placeholder="Enter User ID" autofocus required>
+		<input id="userid" type="text" name="username" required placeholder="Enter User ID" autofocus required>
 		<input id ="checkbox" type="checkbox">Save User ID
 		
 		<br><br>
 		
 		<label for="pass">Password:</label> 
-		<input id="pass" type="password" name="password" placeholder="Password" required>
+		<input id="pass" type="password" required name="password" placeholder="Password" required>
 		
 		<input type="submit" name="submit" value="Log In"> 
 		<br>

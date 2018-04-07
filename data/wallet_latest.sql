@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2018 at 02:30 PM
+-- Generation Time: Apr 07, 2018 at 02:53 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -127,12 +127,19 @@ CREATE TABLE `income_category` (
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `email` varchar(32) NOT NULL,
+  `username` varchar(32) NOT NULL,
   `password` varchar(40) NOT NULL,
   `first_name` varchar(64) NOT NULL,
   `last_name` varchar(64) DEFAULT NULL,
   `registered_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `registered_at`) VALUES
+(1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Aysha', 'Chamak', '2018-04-07 12:33:00');
 
 --
 -- Indexes for dumped tables
@@ -197,7 +204,7 @@ ALTER TABLE `income_category`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
