@@ -1,50 +1,86 @@
-<?php 
-
-include 'config.php';
-include 'Database.php';
-?>
-
 <?php
+session_start();
+$_SESSION['user_id'] = 1;
+require_once './model/ExpenseCategoryModel.php';
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Wallet</title>
+    </head>
+    <body>
+        <br/><br/>
+        <form method="post" action="process-expenditure.php">
+            <fieldset>
+                <center>
+                    <br/>
 
-$db = new Database();
-   
-if(isset($_SESSION) && isset($_SESSION['user_id'])){
-    $user_id = $_SESSION['user_id'];
-    $category = mysql_real_escape_string($_POST['category']);
-    $amount = mysql_real_escape_string($_POST['amount']);
-    $budget_month = mysql_real_escape_string($_POST['expenditure_date']);
-    
-    $query = "INSERT INTO expenditure (id, user_id, category_id, amount, expenditure_date) VALUES (NULL, $user_id, $category, $amount, $expenditure_date)";
-    $insert = $db->insert($query);
-    if($insert){
-        if(calculateIfExpenditureExceeded($category, $budget_month)){
-            header('Location: my-wallet.php?alert=1');            
-        }else{
-            header('Location: my-wallet.php');        
-        }
-    }
-    }else{
-        header('Location: sign_in.php');
-        exit();
-    }
-}   
-    function calculateIfExpenditureExceeded($category_id, $budget_month){
-        $month = date("m", strtotime($budget_month));
-        $query = "SELECT sum(amount) as $total_expense FROM expenditure WHERE category_id = $category_id AND MONTH($budget_month) = $month";
-        $select = $db->select($query);
-        $total_expense = $total_budget = 0;
-        if($select){
-            $result = mysql_fetch_assoc($select);
-            $total_expense = $result['$total_expense'];
-        }
-        $query = "SELECT amount FROM budget WHERE category_id = $category_id AND MONTH($budget_month) = $month";
-        $select = $db->select($query);
-        if($select){
-            $result = mysql_fetch_assoc($select);
-            $total_budget = $result['amount'];
-        }
-        if($total_expense > $total_budget){
-            return true;
-        }
-        return false;
-    }
+                    <?php
+                    $categoryModel = new ExpenseCategoryModel();
+                    $categories = $categoryModel->getAllCategory();
+                    if ($categories) {
+                        $index = 1;
+                        echo date('Y-m-d');
+                        while($category = mysqli_fetch_assoc($categories)) {
+                            ?>
+                    Category<?php echo $index++; ?>: <input type="checkbox" checked="" readonly="" name="cat[]" value="<?php echo $category["id"]; ?>"><?php echo $category["name"]; ?><br/>
+                    <input type="hidden" name="category[]" value="<?php echo $category['id']; ?>"/>
+                    Amount: <input type="number" name="amount[]" step="1" min="0">
+                    Date:<input type="date" name="date[]" value="<?php // echo date('Y-m-d') ?>" max="<?php echo date('Y-m-d'); ?>">
+
+                            <br/><br/>
+                        <?php
+                        }
+                    } else {
+                        echo 'No Category Exists. Insert Category into Database';
+                    }
+                    ?>
+
+<!--			Category 2: <input type="checkbox" name="cat[]" value="Medical">Medical<br/>
+                        Amount:<input type="number" name="amount[]">
+                        Date:<input type="date" name="date[]">
+
+                        <br/><br/>
+
+
+                        Category 3: <input type="checkbox" name="cat[]" value="Entertainment">Entertainment<br/>
+                        Amount:<input type="number" name="amount[]">
+                        Date:<input type="date" name="date[]">
+
+                        <br/><br/>
+
+
+                        Category 4: <input type="checkbox" name="cat[]" value="Food">Food<br/>
+                        Amount:<input type="number" name="amount[]">
+                        Date:<input type="date" name="date[]">
+
+                        <br/><br/>
+
+                        Category 5: <input type="checkbox" name="cat[]" value="Utilities">Utilities<br/>
+                        Amount:<input type="number" name="amount[]">
+                        Date:<input type="date" name="date[]">
+
+                        <br/><br/>
+
+                        Category 6: <input type="checkbox" name="cat[]" value="Education">Education<br/>
+                        Amount:<input type="number" name="amount[]">
+                        Date:<input type="date" name="date[]">
+
+                        <br/><br/>
+
+
+                        Category 7: <input type="checkbox" name="cat[]" value="Sports">Sports<br/>
+                        Amount:<input type="number" name="amount[]">
+                        Date:<input type="date" name="date[]"><br/><br/>-->
+
+                    <input type="submit" name="submit" value="Submit">
+                    <input type="reset" name="reset" value="Reset">
+
+                </center>
+
+            </fieldset>
+
+        </form>
+    </body>
+
+</html>
